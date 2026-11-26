@@ -1,0 +1,51 @@
+# ---------- 依赖 ----------
+node_modules/
+.pnpm-store/
+
+# ---------- 构建产物 ----------
+dist/
+dist-ssr/
+*.tsbuildinfo
+
+# ---------- 运行时数据（数据库 / 上传原图 / 任务快照）----------
+data/
+data-live/
+!data/.gitkeep
+
+# ---------- 本地环境变量与密钥（切勿提交）----------
+.env
+.env.*
+!.env.example
+
+# ---------- 测试与截图产物 ----------
+shots/
+coverage/
+playwright-report/
+test-results/
+*.trace.zip
+
+# ---------- 日志 ----------
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---------- 编辑器 / 系统生成文件 ----------
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ---------- 本地数据库文件 ----------
+*.db
+*.db-wal
+*.db-shm
+
+# ---------- 临时文件 ----------
+*.tmp
+*.bak

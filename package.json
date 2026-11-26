@@ -1,0 +1,34 @@
+{
+  "name": "cuoti-feynman-mvp",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "错题本 × 费曼融合工具 —— 首次错题完整闭环 MVP（①拍照 → ②双通道识别 → ②b回显确认 → ③题目定位 → ④首次批改）",
+  "workspaces": [
+    "apps/server",
+    "apps/web"
+  ],
+  "scripts": {
+    "dev": "concurrently -n server,web -c cyan,magenta \"npm:dev:server\" \"npm:dev:web\"",
+    "dev:server": "npm run dev -w apps/server",
+    "dev:web": "npm run dev -w apps/web",
+    "build": "npm run typecheck -w apps/server && npm run build -w apps/web",
+    "typecheck": "npm run typecheck -w apps/server",
+    "start": "npm run start -w apps/server",
+    "samples": "tsx scripts/gen-samples.ts",
+    "check:secrets": "node scripts/check-secrets.mjs",
+    "test:e2e": "tsx scripts/e2e.ts",
+    "test:users": "tsx scripts/e2e-users.ts",
+    "test:live": "tsx scripts/e2e-live.ts",
+    "test:ui": "tsx scripts/qa-ui.ts",
+    "test:errors": "tsx scripts/qa-errors.ts",
+    "fake:upstream": "tsx scripts/fake-upstream.ts"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "puppeteer-core": "^23.11.1",
+    "sharp": "^0.33.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}

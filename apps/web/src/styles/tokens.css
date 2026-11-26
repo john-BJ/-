@@ -1,0 +1,51 @@
+:root {
+  /* 纸感底色与墨色（沿用既有复习资料审美） */
+  --paper: #fbf8f1;
+  --paper-2: #f6f1e6;
+  --paper-3: #efe8d9;
+  --ink: #2c2c2a;
+  --ink-2: #56534a;
+  --ink-3: #8a8577;
+  --ink-4: #b3ac9c;
+
+  --line: #e2dccc;
+  --line-strong: #cfc6b1;
+
+  --accent: #993c1d;
+  --accent-2: #b8542f;
+  --accent-soft: #f3e3da;
+
+  --ok: #2f6b4f;
+  --ok-soft: #e3efe7;
+  --warn: #a66a15;
+  --warn-soft: #f8ecd6;
+  --err: #a33a2a;
+  --err-soft: #f7e2dd;
+  --info: #3a5675;
+  --info-soft: #e4eaf2;
+
+  --r-xs: 4px;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 18px;
+
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+
+  --font-serif: 'Source Han Serif SC', 'Noto Serif CJK SC', 'Songti SC', 'SimSun', Georgia, serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+
+  --shadow-1: 0 1px 2px rgba(44, 44, 42, 0.05), 0 2px 8px rgba(44, 44, 42, 0.04);
+  --shadow-2: 0 2px 6px rgba(44, 44, 42, 0.06), 0 12px 32px rgba(44, 44, 42, 0.08);
+  --shadow-in: inset 0 1px 2px rgba(44, 44, 42, 0.04);
+
+  --topbar-h: 64px;
+  --shell-max: 1320px;
+}
