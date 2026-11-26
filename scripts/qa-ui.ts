@@ -11,8 +11,28 @@ const here = path.dirname(fileURLToPath(import.meta.url))
 const OUT = path.resolve(here, '../shots')
 fs.mkdirSync(OUT, { recursive: true })
 
-const EDGE = 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe'
 const BASE = process.env.BASE ?? 'http://127.0.0.1:8787'
+
+/** 跨平台找浏览器：优先 BROWSER_PATH，其次 Edge / Chrome 的常见安装位置 */
+const BROWSER =
+  process.env.BROWSER_PATH ||
+  [
+    'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
+    'C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe',
+    'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+    'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge',
+    '/usr/bin/google-chrome',
+    '/usr/bin/chromium',
+    '/usr/bin/chromium-browser',
+  ].find((p) => fs.existsSync(p)) ||
+  ''
+
+if (!BROWSER) {
+  console.error('未找到 Chrome/Edge，请用 BROWSER_PATH 指定浏览器可执行文件路径')
+  process.exit(1)
+}
 
 const logs: string[] = []
 const wait = (ms: number) => new Promise<void>((r) => setTimeout(r, ms))
@@ -63,7 +83,7 @@ async function shot(page: Page, name: string, fullPage = false) {
 
 async function run(width: number, height: number, tag: string) {
   const browser = await puppeteer.launch({
-    executablePath: EDGE,
+    executablePath: BROWSER,
     headless: true,
     args: ['--no-first-run', '--disable-gpu', '--hide-scrollbars', `--window-size=${width},${height}`],
     defaultViewport: { width, height, deviceScaleFactor: 1, isMobile: width < 768, hasTouch: width < 768 },

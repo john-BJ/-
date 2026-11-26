@@ -2,14 +2,36 @@
  * 异常态走查：上传一张「非演示样本」的照片，验证演示模式下的错误提示；
  * 再验证「未裁定冲突时确认按钮禁用」。
  */
+import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import puppeteer from 'puppeteer-core'
 
 const here = path.dirname(fileURLToPath(import.meta.url))
 const OUT = path.resolve(here, '../shots')
-const EDGE = 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe'
 const BASE = process.env.BASE ?? 'http://127.0.0.1:8787'
+
+/** 跨平台找浏览器：优先 BROWSER_PATH，其次 Edge / Chrome 的常见安装位置 */
+const BROWSER =
+  process.env.BROWSER_PATH ||
+  [
+    'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
+    'C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe',
+    'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+    'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge',
+    '/usr/bin/google-chrome',
+    '/usr/bin/chromium',
+    '/usr/bin/chromium-browser',
+  ].find((p) => fs.existsSync(p)) ||
+  ''
+
+if (!BROWSER) {
+  console.error('未找到 Chrome/Edge，请用 BROWSER_PATH 指定浏览器可执行文件路径')
+  process.exit(1)
+}
+
 const wait = (ms: number) => new Promise<void>((r) => setTimeout(r, ms))
 
 let failed = 0
@@ -23,7 +45,7 @@ function check(name: string, cond: boolean, extra = '') {
 
 async function main() {
   const browser = await puppeteer.launch({
-    executablePath: EDGE,
+    executablePath: BROWSER,
     headless: true,
     args: ['--no-first-run', '--disable-gpu', '--hide-scrollbars', '--window-size=1440,1000'],
     defaultViewport: { width: 1440, height: 1000 },
