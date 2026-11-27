@@ -240,6 +240,6 @@ npm run check:secrets   # 构建产物密钥扫描
 - [ ] ⑥ 费曼追问与掌握度
 - [ ] ⑦ PDF 归档
 
-## License
+## License。
 
 [MIT](LICENSE)
